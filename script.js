@@ -8,7 +8,7 @@ const config = {
     third:{ text:"Will you be my Valentine...?", yesBtn:"Yes!", noBtn:"No" }
   },
   loveMessages:{ extreme:"WOOOOW You love me that much?? 🥰🚀💝", high:"To infinity and beyond! 🚀💝", normal:"And beyond! 🥰" },
-  celebration:{ title:"Yay! I'm the luckiest person...", message:"Now come get your gift...", emojis:"🎁💖🤗💝💋❤️💕" },
+  celebration:{ title:"Yay! I'm the luckiest person...", message:"Cadeau : 1 week-end ici : https://www.staycation.co/fr/hotels/chateau-de-bourron-2523?coords=48.853495%2C2.348392", emojis:"🎁💖🤗💝💋❤️💕" },
   colors:{ backgroundStart:"#ffafbd", backgroundEnd:"#ffc3a0", buttonBackground:"#ff6b6b", buttonHover:"#ff8787", textColor:"#ff4757" },
   animations:{ floatDuration:"15s", floatDistance:"50px", bounceSpeed:"0.5s", heartExplosionSize:1.5 },
   music:{ enabled:true, autoplay:true, musicUrl:"YOUR_CLOUDINARY_URL_HERE", startText:"🎵 Play Music", stopText:"🔇 Stop Music", volume:0.5 }

@@ -1,0 +1,129 @@
+const config = {
+  valentineName: "Leticia",
+  pageTitle: "Will You Be My Valentine? 💝",
+  floatingEmojis: { hearts:['❤️','💖','💝','💗','💓'], bears:['🧸','🐻'] },
+  questions: {
+    first:{ text:"Do you like me?", yesBtn:"Yes", noBtn:"No", secretAnswer:"I don't like you, I love you! ❤️" },
+    second:{ text:"How much do you love me?", startText:"This much!", nextBtn:"Next ❤️" },
+    third:{ text:"Will you be my Valentine...?", yesBtn:"Yes!", noBtn:"No" }
+  },
+  loveMessages:{ extreme:"WOOOOW You love me that much?? 🥰🚀💝", high:"To infinity and beyond! 🚀💝", normal:"And beyond! 🥰" },
+  celebration:{ title:"Yay! I'm the luckiest person...", message:"Now come get your gift...", emojis:"🎁💖🤗💝💋❤️💕" },
+  colors:{ backgroundStart:"#ffafbd", backgroundEnd:"#ffc3a0", buttonBackground:"#ff6b6b", buttonHover:"#ff8787", textColor:"#ff4757" },
+  animations:{ floatDuration:"15s", floatDistance:"50px", bounceSpeed:"0.5s", heartExplosionSize:1.5 },
+  music:{ enabled:true, autoplay:true, musicUrl:"YOUR_CLOUDINARY_URL_HERE", startText:"🎵 Play Music", stopText:"🔇 Stop Music", volume:0.5 }
+}
+
+// Apply titles
+document.title = config.pageTitle
+document.getElementById('page-title').textContent = config.pageTitle
+
+// Floating emojis
+function createFloating(){
+  const root = document.getElementById('floating')
+  const pool = [...config.floatingEmojis.hearts, ...config.floatingEmojis.bears]
+  for(let i=0;i<22;i++){
+    const el=document.createElement('div')
+    el.className='float-emoji'
+    el.textContent=pool[Math.floor(Math.random()*pool.length)]
+    el.style.left = Math.random()*100+'%'
+    el.style.fontSize = (18+Math.random()*36)+'px'
+    el.style.animationDuration = (10+Math.random()*10)+'s'
+    el.style.setProperty('--dx', (Math.random()*parseInt(config.animations.floatDistance)* (Math.random()<0.5?-1:1))+'px')
+    root.appendChild(el)
+  }
+}
+createFloating()
+
+// Helper to show/hide
+function show(id){ document.querySelectorAll('.question').forEach(s=>s.hidden=true); document.getElementById(id).hidden=false }
+
+// Evasive buttons behavior
+function makeEvasive(btn){
+  btn.addEventListener('mouseenter', ()=>{
+    const parent = document.querySelector('.card')
+    const w = parent.clientWidth-90
+    const h = parent.clientHeight-40
+    btn.style.transform = `translate(${Math.random()*w - w/2}px, ${Math.random()*h - h/2}px)`
+  })
+  btn.addEventListener('mouseleave', ()=>{btn.style.transform='translate(0)'} )
+}
+
+// Q1
+show('q1')
+const q1yes = document.getElementById('q1-yes')
+const q1no = document.getElementById('q1-no')
+makeEvasive(q1no)
+q1yes.onclick = ()=> show('q2')
+q1no.onclick = ()=>{ const s=document.getElementById('q1-secret'); s.hidden=false; setTimeout(()=>show('q2'),1200) }
+
+// Q2 love meter
+const percentEl = document.getElementById('percent')
+const loveMsg = document.getElementById('love-msg')
+let pct=0, inc=null
+const q2start = document.getElementById('q2-start')
+const q2next = document.getElementById('q2-next')
+q2start.onclick = ()=>{
+  if(inc) return
+  const target = Math.floor(100 + Math.random()*9900)
+  inc = setInterval(()=>{
+    pct += Math.ceil(Math.random()* (target>2000?50:20))
+    if(pct>target) pct=target
+    percentEl.textContent = pct+"%"
+    if(pct>5000) { loveMsg.textContent = config.loveMessages.extreme; loveMsg.hidden=false }
+    else if(pct>1000){ loveMsg.textContent = config.loveMessages.high; loveMsg.hidden=false }
+    else if(pct>100){ loveMsg.textContent = config.loveMessages.normal; loveMsg.hidden=false }
+    if(pct>=target){ clearInterval(inc); inc=null }
+  },80)
+}
+q2next.onclick = ()=> show('q3')
+
+// Q3
+const q3yes = document.getElementById('q3-yes')
+const q3no = document.getElementById('q3-no')
+makeEvasive(q3no)
+q3yes.onclick = ()=> celebrate()
+q3no.onclick = ()=>{ const c = document.getElementById('q1-secret'); c.hidden=false; setTimeout(()=>celebrate(),900) }
+
+// Celebration
+const audio = document.getElementById('bg-music')
+const musicToggle = document.getElementById('music-toggle')
+if(config.music.enabled){ audio.src = config.music.musicUrl; audio.volume = config.music.volume }
+function celebrate(){
+  show('celebrate')
+  const cele = document.getElementById('cele-emojis')
+  cele.textContent = config.celebration.emojis
+  explodeHearts(14)
+  if(config.music.enabled && config.music.autoplay){ audio.play().catch(()=>{}) }
+}
+function explodeHearts(n){
+  const root = document.querySelector('.card')
+  for(let i=0;i<n;i++){
+    const el = document.createElement('div')
+    el.className='heart-explode'
+    el.textContent = config.floatingEmojis.hearts[Math.floor(Math.random()*config.floatingEmojis.hearts.length)]
+    el.style.left = (30 + Math.random()*60)+'%'
+    el.style.top = (40 + Math.random()*20)+'%'
+    el.style.fontSize = (18 + Math.random()*38)+'px'
+    root.appendChild(el)
+    setTimeout(()=>el.remove(),900)
+  }
+}
+
+musicToggle.onclick = async ()=>{
+  if(!config.music.enabled) return
+  if(audio.paused){ await audio.play().catch(()=>{}); musicToggle.textContent = config.music.stopText } else { audio.pause(); musicToggle.textContent = config.music.startText }
+}
+
+// small polish: set button labels from config
+q1yes.textContent = config.questions.first.yesBtn
+q1no.textContent = config.questions.first.noBtn
+q2start.textContent = config.questions.second.startText
+q2next.textContent = config.questions.second.nextBtn
+q3yes.textContent = config.questions.third.yesBtn
+q3no.textContent = config.questions.third.noBtn
+musicToggle.textContent = config.music.startText
+
+// personalize title
+const title = document.getElementById('page-title')
+title.textContent = `${config.pageTitle.replace('Will You Be My Valentine? 💝','')} ${config.valentineName}`

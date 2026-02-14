@@ -1,0 +1,26 @@
+:root{
+  --bg1:#ffafbd;
+  --bg2:#ffc3a0;
+  --btn:#ff6b6b;
+  --btn-hover:#ff8787;
+  --text:#ff4757;
+  --float-distance:50px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text)}
+body{background:linear-gradient(135deg,var(--bg1),var(--bg2));display:flex;align-items:center;justify-content:center}
+.card{background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);padding:28px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.15);width:min(720px,92%);text-align:center}
+.q-text{font-size:1.2rem;margin:12px 0}
+.btns{display:flex;gap:12px;justify-content:center;margin-top:12px}
+.btn{background:var(--btn);color:white;border:0;padding:10px 16px;border-radius:10px;font-weight:600;cursor:pointer;transition:transform .12s ease,background .12s}
+.btn:hover{background:var(--btn-hover);transform:translateY(-3px)}
+.secret{margin-top:10px;color:var(--text);font-weight:600}
+.meter{display:flex;align-items:center;justify-content:center;gap:16px;font-size:1.4rem;margin-top:8px}
+#percent{font-weight:900;color:var(--text)}
+#floating{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.float-emoji{position:absolute;font-size:28px;opacity:.95;animation:floatUp linear infinite}
+@keyframes floatUp{0%{transform:translateY(120vh) translateX(0) scale(1)}50%{transform:translateY(40vh) translateX(var(--dx)) scale(1.05)}100%{transform:translateY(-20vh) translateX(0) scale(1)}}
+.evasive{position:relative}
+.cele-emojis{font-size:1.6rem;margin-top:12px}
+.heart-explode{position:absolute;font-size:28px;animation:explode .9s ease forwards}
+@keyframes explode{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-120px) scale(1.5);opacity:0}}

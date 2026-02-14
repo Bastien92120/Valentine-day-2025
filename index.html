@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Will You Be My Valentine? 💝</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="floating"></div>
+  <main class="card">
+    <h1 id="page-title">Will You Be My Valentine? 💝</h1>
+
+    <section id="q1" class="question">
+      <p class="q-text">Do you like me?</p>
+      <div class="btns">
+        <button id="q1-yes" class="btn">Yes</button>
+        <button id="q1-no" class="btn evasive">No</button>
+      </div>
+      <p id="q1-secret" class="secret" hidden>I don't like you, I love you! ❤️</p>
+    </section>
+
+    <section id="q2" class="question" hidden>
+      <p class="q-text">How much do you love me?</p>
+      <div class="meter">
+        <div id="love-text">This much!</div>
+        <div id="percent">0%</div>
+      </div>
+      <div class="btns">
+        <button id="q2-start" class="btn">This much!</button>
+        <button id="q2-next" class="btn">Next ❤️</button>
+      </div>
+      <p id="love-msg" class="secret" hidden>And beyond! 🥰</p>
+    </section>
+
+    <section id="q3" class="question" hidden>
+      <p class="q-text">Will you be my Valentine...?</p>
+      <div class="btns">
+        <button id="q3-yes" class="btn">Yes!</button>
+        <button id="q3-no" class="btn evasive">No</button>
+      </div>
+    </section>
+
+    <section id="celebrate" class="question" hidden>
+      <h2 id="cele-title">Yay! I'm the luckiest person...</h2>
+      <p id="cele-msg">Now come get your gift...</p>
+      <div id="cele-emojis" class="cele-emojis">🎁💖🤗💝💋❤️💕</div>
+      <div class="btns">
+        <button id="music-toggle" class="btn">🎵 Play Music</button>
+      </div>
+    </section>
+
+  </main>
+  <audio id="bg-music" crossorigin="anonymous"></audio>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -69,25 +69,22 @@ q1no.addEventListener('mouseleave', ()=>{ q1no.textContent = "No" })
 q1yes.onclick = ()=>{ const s=document.getElementById('q1-secret'); s.hidden=false; setTimeout(()=>show('q2'),1200) }
 q1no.onclick = ()=> show('q2')
 
-// Q2 love meter
+// Q2 love meter with slider
+const slider = document.getElementById('love-slider')
 const percentEl = document.getElementById('percent')
 const loveMsg = document.getElementById('love-msg')
-let pct=0, inc=null
-const q2start = document.getElementById('q2-start')
 const q2next = document.getElementById('q2-next')
-q2start.onclick = ()=>{
-  if(inc) return
-  const target = Math.floor(100 + Math.random()*9900)
-  inc = setInterval(()=>{
-    pct += Math.ceil(Math.random()* (target>2000?50:20))
-    if(pct>target) pct=target
-    percentEl.textContent = pct+"%"
-    if(pct>5000) { loveMsg.textContent = config.loveMessages.extreme; loveMsg.hidden=false }
-    else if(pct>1000){ loveMsg.textContent = config.loveMessages.high; loveMsg.hidden=false }
-    else if(pct>100){ loveMsg.textContent = config.loveMessages.normal; loveMsg.hidden=false }
-    if(pct>=target){ clearInterval(inc); inc=null }
-  },80)
-}
+
+slider.addEventListener('input', ()=>{
+  const pct = parseInt(slider.value)
+  percentEl.textContent = pct+"%"
+  
+  if(pct > 5000) { loveMsg.textContent = config.loveMessages.extreme; loveMsg.hidden=false }
+  else if(pct > 1000){ loveMsg.textContent = config.loveMessages.high; loveMsg.hidden=false }
+  else if(pct > 100){ loveMsg.textContent = config.loveMessages.normal; loveMsg.hidden=false }
+  else { loveMsg.hidden=true }
+})
+
 q2next.onclick = ()=> show('q3')
 
 // Q3

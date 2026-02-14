@@ -22,5 +22,8 @@ body{background:linear-gradient(135deg,var(--bg1),var(--bg2));display:flex;align
 @keyframes floatUp{0%{transform:translateY(120vh) translateX(0) scale(1)}50%{transform:translateY(40vh) translateX(var(--dx)) scale(1.05)}100%{transform:translateY(-20vh) translateX(0) scale(1)}}
 .evasive{position:relative}
 .cele-emojis{font-size:1.6rem;margin-top:12px}
+.love-slider{width:100%;max-width:300px;height:8px;border-radius:5px;background:linear-gradient(to right,#ff6b6b,#ff8787);outline:0;-webkit-appearance:none;appearance:none;cursor:pointer}
+.love-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;border-radius:50%;background:white;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.love-slider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:white;cursor:pointer;border:0;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
 .heart-explode{position:absolute;font-size:28px;animation:explode .9s ease forwards}
 @keyframes explode{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-120px) scale(1.5);opacity:0}}

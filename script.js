@@ -101,7 +101,7 @@ const musicToggle = document.getElementById('music-toggle')
 function celebrate(){
   show('celebrate')
   document.getElementById('cele-title').textContent = config.celebration.title
-  document.getElementById('cele-msg').textContent = config.celebration.message
+  document.getElementById('cele-msg').textContent = "Cadeau : 1 week-end ici :"
   const cele = document.getElementById('cele-emojis')
   cele.textContent = config.celebration.emojis
   explodeHearts(14)

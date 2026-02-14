@@ -62,9 +62,12 @@ function makeEvasive(btn){
 show('q1')
 const q1yes = document.getElementById('q1-yes')
 const q1no = document.getElementById('q1-no')
+makeEvasive(q1yes)
 makeEvasive(q1no)
-q1yes.onclick = ()=> show('q2')
-q1no.onclick = ()=>{ const s=document.getElementById('q1-secret'); s.hidden=false; setTimeout(()=>show('q2'),1200) }
+q1no.addEventListener('mouseenter', ()=>{ q1no.textContent = "No, I LOOOOOVE U" })
+q1no.addEventListener('mouseleave', ()=>{ q1no.textContent = "No" })
+q1yes.onclick = ()=>{ const s=document.getElementById('q1-secret'); s.hidden=false; setTimeout(()=>show('q2'),1200) }
+q1no.onclick = ()=> show('q2')
 
 // Q2 love meter
 const percentEl = document.getElementById('percent')

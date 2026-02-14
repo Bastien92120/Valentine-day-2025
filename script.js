@@ -58,15 +58,38 @@ function makeEvasive(btn){
   btn.addEventListener('mouseleave', ()=>{btn.style.transform='translate(0)'} )
 }
 
+// Move button only on click
+function moveOnClick(btn, callback){
+  let moved = false
+  btn.onclick = function(e){
+    e.preventDefault()
+    if(!moved){
+      moved = true
+      const parent = document.querySelector('.card')
+      const w = parent.clientWidth-90
+      const h = parent.clientHeight-40
+      const x = Math.random()*w - w/2
+      const y = Math.random()*h - h/2
+      btn.style.transform = `translate(${x}px, ${y}px)`
+    } else {
+      btn.style.transform = 'translate(0)'
+      callback()
+    }
+  }
+}
+
 // Q1
 show('q1')
 const q1yes = document.getElementById('q1-yes')
 const q1no = document.getElementById('q1-no')
-makeEvasive(q1yes)
+moveOnClick(q1yes, ()=>{ 
+  const s=document.getElementById('q1-secret')
+  s.hidden=false
+  setTimeout(()=>show('q2'),1200) 
+})
 makeEvasive(q1no)
 q1no.addEventListener('mouseenter', ()=>{ q1no.textContent = "No, I LOOOOOVE U" })
 q1no.addEventListener('mouseleave', ()=>{ q1no.textContent = "No" })
-q1yes.onclick = ()=>{ const s=document.getElementById('q1-secret'); s.hidden=false; setTimeout(()=>show('q2'),1200) }
 q1no.onclick = ()=> show('q2')
 
 // Q2 love meter with slider

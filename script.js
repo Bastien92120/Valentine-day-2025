@@ -11,12 +11,21 @@ const config = {
   celebration:{ title:"Yay! I'm the luckiest person...", message:"Cadeau : 1 week-end ici : https://www.staycation.co/fr/hotels/chateau-de-bourron-2523?coords=48.853495%2C2.348392", emojis:"🎁💖🤗💝💋❤️💕" },
   colors:{ backgroundStart:"#ffafbd", backgroundEnd:"#ffc3a0", buttonBackground:"#ff6b6b", buttonHover:"#ff8787", textColor:"#ff4757" },
   animations:{ floatDuration:"15s", floatDistance:"50px", bounceSpeed:"0.5s", heartExplosionSize:1.5 },
-  music:{ enabled:true, autoplay:true, musicUrl:"YOUR_CLOUDINARY_URL_HERE", startText:"🎵 Play Music", stopText:"🔇 Stop Music", volume:0.5 }
+  music:{ enabled:true, autoplay:true, musicUrl:"https://rr2---sn-a5mlrnes.googlevideo.com/videoplayback?expire=1739557200&ei=H1XuZ4GEN5CAsfIP94KqmA0&ip=0.0.0.0&id=o-AB2_gZ8YV7Y3TL0v5hx8I4xr6lc_2b7dxQ7cUVIz6p7u&itag=251&source=youtube&requiressl=yes&rn=gH8fGqOHUHYg&rbuf=10000&vprv=1&svpuc=1&mime=audio/webm&rqh=1&gir=yes&clen=2245643&dur=154.060&lmt=1727906897&mt=1739535452&fvip=1&keepalive=yes&fexp=24007246,51273022&c=WEB&txp=4318224&n=G5ZkQmGk5TpJKf0&sparams=expire,ei,ip,id,itag,source,requiressl,rn,rbuf,vprv,svpuc,mime,rqh,gir,clen,dur,lmt&sig=ACtQSFxwRQIhAM4h5N1-q7zLrJ5aZxqEGLEZLI8PUVD3CsGgwLPIgpvyAiBZGJe9tKdJZLfFqjpB2R2qzLCWFhX7iL9t6cZGEMR2Mw%3D%3D&lsparams=rqh,svpuc&lsig=AGluJ3MwRAIhAKe5AULfMrN4pGGLDV7_lQwRpYZCuGKFv08vb_YBpqwjAh_cR8qRDsUFCKr4dswP7vIJKVvmOTAK0VPwf5SgOaD2", startText:"🎵 Play Music", stopText:"🔇 Stop Music", volume:0.5 }
 }
 
 // Apply titles
 document.title = config.pageTitle
 document.getElementById('page-title').textContent = config.pageTitle
+
+// Start music immediately
+const audio = document.getElementById('bg-music')
+if(config.music.enabled){ 
+  audio.src = config.music.musicUrl
+  audio.volume = config.music.volume
+  audio.loop = true
+  if(config.music.autoplay){ audio.play().catch(()=>{}) }
+}
 
 // Floating emojis
 function createFloating(){
@@ -86,9 +95,7 @@ q3yes.onclick = ()=> celebrate()
 q3no.onclick = ()=>{ const c = document.getElementById('q1-secret'); c.hidden=false; setTimeout(()=>celebrate(),900) }
 
 // Celebration
-const audio = document.getElementById('bg-music')
 const musicToggle = document.getElementById('music-toggle')
-if(config.music.enabled){ audio.src = config.music.musicUrl; audio.volume = config.music.volume }
 function celebrate(){
   show('celebrate')
   document.getElementById('cele-title').textContent = config.celebration.title

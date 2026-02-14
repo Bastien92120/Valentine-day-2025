@@ -75,15 +75,17 @@ const percentEl = document.getElementById('percent')
 const loveMsg = document.getElementById('love-msg')
 const q2next = document.getElementById('q2-next')
 
-slider.addEventListener('input', ()=>{
-  const pct = parseInt(slider.value)
-  percentEl.textContent = pct+"%"
-  
-  if(pct > 5000) { loveMsg.textContent = config.loveMessages.extreme; loveMsg.hidden=false }
-  else if(pct > 1000){ loveMsg.textContent = config.loveMessages.high; loveMsg.hidden=false }
-  else if(pct > 100){ loveMsg.textContent = config.loveMessages.normal; loveMsg.hidden=false }
-  else { loveMsg.hidden=true }
-})
+if(slider){
+  slider.addEventListener('input', function(){
+    const pct = parseInt(this.value)
+    percentEl.textContent = pct+"%"
+    
+    if(pct > 5000) { loveMsg.textContent = config.loveMessages.extreme; loveMsg.hidden=false }
+    else if(pct > 1000){ loveMsg.textContent = config.loveMessages.high; loveMsg.hidden=false }
+    else if(pct > 100){ loveMsg.textContent = config.loveMessages.normal; loveMsg.hidden=false }
+    else { loveMsg.hidden=true }
+  })
+}
 
 q2next.onclick = ()=> show('q3')
 
@@ -127,7 +129,6 @@ musicToggle.onclick = async ()=>{
 // small polish: set button labels from config
 q1yes.textContent = config.questions.first.yesBtn
 q1no.textContent = config.questions.first.noBtn
-q2start.textContent = config.questions.second.startText
 q2next.textContent = config.questions.second.nextBtn
 q3yes.textContent = config.questions.third.yesBtn
 q3no.textContent = config.questions.third.noBtn

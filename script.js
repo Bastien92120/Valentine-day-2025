@@ -58,23 +58,16 @@ function makeEvasive(btn){
   btn.addEventListener('mouseleave', ()=>{btn.style.transform='translate(0)'} )
 }
 
-// Move button only on click
+// Move button only on click - infinite repositioning
 function moveOnClick(btn, callback){
-  let moved = false
   btn.onclick = function(e){
     e.preventDefault()
-    if(!moved){
-      moved = true
-      const parent = document.querySelector('.card')
-      const w = parent.clientWidth-90
-      const h = parent.clientHeight-40
-      const x = Math.random()*w - w/2
-      const y = Math.random()*h - h/2
-      btn.style.transform = `translate(${x}px, ${y}px)`
-    } else {
-      btn.style.transform = 'translate(0)'
-      callback()
-    }
+    const parent = document.querySelector('.card')
+    const w = parent.clientWidth-90
+    const h = parent.clientHeight-40
+    const x = Math.random()*w - w/2
+    const y = Math.random()*h - h/2
+    btn.style.transform = `translate(${x}px, ${y}px)`
   }
 }
 
@@ -82,13 +75,9 @@ function moveOnClick(btn, callback){
 show('q1')
 const q1yes = document.getElementById('q1-yes')
 const q1no = document.getElementById('q1-no')
-moveOnClick(q1yes, ()=>{ 
-  const s=document.getElementById('q1-secret')
-  s.hidden=false
-  setTimeout(()=>show('q2'),1200) 
-})
+moveOnClick(q1yes)
 makeEvasive(q1no)
-q1no.addEventListener('mouseenter', ()=>{ q1no.textContent = "No, I LOOOOOVE U" })
+q1no.addEventListener('mouseenter', ()=>{ q1no.textContent = "No, I LOOOOOOOOOVE U" })
 q1no.addEventListener('mouseleave', ()=>{ q1no.textContent = "No" })
 q1no.onclick = ()=> show('q2')
 
@@ -103,9 +92,8 @@ if(slider){
     const pct = parseInt(this.value)
     percentEl.textContent = pct+"%"
     
-    if(pct > 5000) { loveMsg.textContent = config.loveMessages.extreme; loveMsg.hidden=false }
-    else if(pct > 1000){ loveMsg.textContent = config.loveMessages.high; loveMsg.hidden=false }
-    else if(pct > 100){ loveMsg.textContent = config.loveMessages.normal; loveMsg.hidden=false }
+    if(pct >= 500) { loveMsg.textContent = config.loveMessages.extreme; loveMsg.hidden=false }
+    else if(pct >= 200){ loveMsg.textContent = config.loveMessages.high; loveMsg.hidden=false }
     else { loveMsg.hidden=true }
   })
 }

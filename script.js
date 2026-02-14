@@ -91,6 +91,8 @@ const musicToggle = document.getElementById('music-toggle')
 if(config.music.enabled){ audio.src = config.music.musicUrl; audio.volume = config.music.volume }
 function celebrate(){
   show('celebrate')
+  document.getElementById('cele-title').textContent = config.celebration.title
+  document.getElementById('cele-msg').textContent = config.celebration.message
   const cele = document.getElementById('cele-emojis')
   cele.textContent = config.celebration.emojis
   explodeHearts(14)
